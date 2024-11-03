@@ -1,0 +1,36 @@
+stages:
+  load_n_clean:
+    cmd: python src/load_n_clean.py data/data.csv data/clean_data.csv params.yaml
+    deps:
+    - data/data.csv
+    - params.yaml
+    outs:
+    - data/clean_data.csv
+  preprocess:
+    cmd: python src/preprocess.py data/clean_data.csv data/train_data.csv data/test_data.csv
+      data/validation_data.csv params.yaml
+    deps:
+    - data/clean_data.csv
+    - params.yaml
+    outs:
+    - data/test_data.csv
+    - data/train_data.csv
+    - data/validation_data.csv
+  train:
+    cmd: python src/train.py data/train_data.csv models params.yaml
+    deps:
+    - data/train_data.csv
+    - params.yaml
+    outs:
+    - models/GradientBoosting.pkl
+    - models/LinearRegression.pkl
+    - models/RandomForest.pkl
+  evaluate:
+    cmd: python src/evaluate.py data/test_data.csv models metrics.json params.yaml
+    deps:
+    - data/test_data.csv
+    - models/
+    - params.yaml
+    metrics:
+    - metrics.json:
+        cache: false
