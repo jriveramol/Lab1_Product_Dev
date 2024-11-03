@@ -1,24 +1,29 @@
 preprocessing:
-    target: price
-    numeric_features: [area, bedrooms, bathrooms, stories, parking]
-    categorical_features: [mainroad, guestroom, basement, hotwaterheating, airconditioning, prefarea, furnishingstatus]
-    test_size: 0.2
-    random_state: 42
+  target: price
+  numeric_features:
+  - area
+  - bedrooms
+  - bathrooms
+  - stories
+  - parking
+  categorical_features:
+  - mainroad
+  - guestroom
+  - basement
+  - hotwaterheating
+  - airconditioning
+  - prefarea
+  - furnishingstatus
+  test_size: 0.2
+  random_state: 42
 
 train:
-    random_state: 42
-    params_optm: {'LinearRegression':{'fit_intercept': [True, False]},
-                  'RandomForest':{'n_estimators': [25, 50, 75, 100, 125, 150],
-                                  'max_depth': [5, 10, 15],
-                                  'min_samples_split': [2, 5, 10],
-                                  'min_samples_leaf': [1, 2, 4]}, 
-                  'GradientBoosting':{'n_estimators': [25, 50, 75, 100, 125, 150],
-                                      'learning_rate': [0.01, 0.1, 0.2],
-                                      'max_depth': [3, 5, 7],
-                                      'min_samples_split': [2, 5, 10],
-                                      'min_samples_leaf': [1, 2, 4],
-                                      'subsample': [0.7, 0.8, 1.0]}
-                 }
-                                               
-    scoring: 'neg_mean_squared_error'
-    cv: 5
+  random_state: 2024
+  params_optm: {LinearRegression: {fit_intercept: [true, false]}, RandomForest: {
+      n_estimators: [25, 50, 75, 100, 125, 150], max_depth: [5, 10, 15], min_samples_split: [
+        2, 5, 10], min_samples_leaf: [1, 2, 4]}, GradientBoosting: {n_estimators: [
+        25, 50, 75, 100, 125, 150], learning_rate: [0.01, 0.1, 0.2], max_depth: [
+        3, 5, 7], min_samples_split: [2, 5, 10], min_samples_leaf: [1, 2, 4], subsample: [
+        0.7, 0.8, 1.0]}}
+  scoring: neg_mean_squared_error
+  cv: 5
