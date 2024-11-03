@@ -1,0 +1,21 @@
+Instrucciones de reproducción de pipeline
+-----------------------------------------
+Se recomienda crear un entorno dedicado e instalar las librerías indicadas en el archivo requirements.txt, luego, dentro del entorno y en la consola de comandos o GitBash seguir los siguientes pasos:
+
+1. Inicializar dvc con
+		dvc init
+		
+2. Dado que los archivos necesarios se encuentran en la carpeta "remote_simulation" no es necesario crear el remoto ni hacer el pull.
+
+3. Ejecutar el comando
+		dvc exp run
+
+4. Si se desea correr cada script por separado se deben ejecutar las siguientes líneas en la consola
+	- Carga y limpieza de datos
+		python src/load_n_clean.py data/data.csv data/clean_data.csv params.yaml
+	- Estandarización y codificación de variables categóricas (preprocesamiento)
+		python src/preprocess.py data/clean_data.csv data/train_data.csv data/test_data.csv
+	- Entrenamiento de modelos
+		python src/train.py data/train_data.csv models params.yaml
+	- Evaluación de modelos
+		python src/evaluate.py data/test_data.csv models metrics.json params.yaml
